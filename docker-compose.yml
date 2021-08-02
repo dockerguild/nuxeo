@@ -1,0 +1,19 @@
+version: "3"
+services:
+
+  app:
+    image: nuxeo:latest
+    container_name: ${APP_NAME}_app_${APP_INSTANCE}
+    restart: unless-stopped
+    volumes:
+      - ./data/app:/var/lib/nuxeo/data
+    ports:
+      - 127.0.0.1:8080:8080
+    env_file:
+      - .env
+      - .env.local
+    logging:
+      driver: json-file
+      options:
+        max-size: "1m"
+        max-file: "10"
