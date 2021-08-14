@@ -1,0 +1,1 @@
+0	*	*	*	*	root	bash /home/www/nuxeo.test/www/bin/console.sh dump > /home/www/nuxeo.test/www/var/log/dump.cron.log

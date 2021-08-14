@@ -5,10 +5,27 @@ services:
     image: nuxeo:latest
     container_name: ${APP_NAME}_app_${APP_INSTANCE}
     restart: unless-stopped
+    depends_on:
+      - database
     volumes:
       - ./data/app:/var/lib/nuxeo/data
     ports:
       - 127.0.0.1:${APP_PORT}:8080
+    env_file:
+      - .env
+      - .env.local
+    logging:
+      driver: json-file
+      options:
+        max-size: "1m"
+        max-file: "10"
+
+  database:
+    image: mariadb:10.6.3
+    container_name: ${APP_NAME}_database_${APP_INSTANCE}
+    restart: unless-stopped
+    volumes:
+      - ./data/mysql:/var/lib/mysql
     env_file:
       - .env
       - .env.local
